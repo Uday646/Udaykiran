@@ -1,0 +1,46 @@
+using System;
+using Xunit;
+using TestApp;
+
+namespace TestAppUnitTests
+{
+    public class UnitTest1
+    {
+        [Fact]
+        [InlineData("", "")]
+        public void AddRomanNumerals_WhenArgumentIsNull_RaiseArgumentNullException()
+        {
+
+            var romanNumerals = new RomanNumerals();
+
+            Assert.Throws<ArgumentException>(() => romanNumerals.AddRomanNumerals(null, null));
+
+        }
+
+        [InlineData("A","-")]
+        public void AddRomanNumerals_WhenInvalidNumeralSyntax_RaiseException(string input)
+        {
+            var romanNumerals = new RomanNumerals();
+
+            Assert.Throws<ArgumentException>(() => romanNumerals.AddRomanNumerals(input, input));
+        }
+
+        [InlineData("IIII", "CCCC")]
+        public void AddRomanNumerals_WhenInvalidNumeralSemantics_RaiseException(string input)
+        {
+            var romanNumerals = new RomanNumerals();
+
+            Assert.Throws<ArgumentException>(() => romanNumerals.AddRomanNumerals(input, input));
+        }
+
+        [InlineData("LV","X", "LV")]        
+        public void AddRomanNumerals_WhenValidNumeral_Translate(string input1, string input2, string output)
+        {
+            var romanNumerals = new RomanNumerals();
+
+            var result = romanNumerals.AddRomanNumerals(input1, input2);
+
+            Assert.Equal(result,output);
+        }
+    }
+}
